@@ -1,25 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from "react";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  const [windowWidth, setWindowWidth] = useState(
+    window.innerWidth
+  ); /* initialize is necessray for the first render */
+
+  useEffect(() => {
+    window.addEventListener("resize", () => {
+      setWindowWidth(window.innerWidth);
+    });
+
+    return () => {
+      window.removeEventListener("resize", () => {
+        console.log("Remove resize listner");
+      });
+    };
+  }, []);
+
+  return <div className="App">The window width is {`${windowWidth}`}</div>;
 }
 
 export default App;
